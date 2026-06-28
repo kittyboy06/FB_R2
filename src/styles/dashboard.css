@@ -1,0 +1,4 @@
+/* Styling themes for High-Density RPA Operator Terminal */
+header h1 {
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}

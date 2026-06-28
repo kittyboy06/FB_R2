@@ -1,0 +1,147 @@
+/* Recycled Grid row styling */
+.vgrid-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  background-color: rgba(15, 23, 42, 0.25);
+  color: #cbd5e1; /* Slate 300 */
+  font-size: 0.8rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+
+.vgrid-row:hover {
+  background-color: rgba(30, 41, 59, 0.45); /* Slate 800 translucent */
+  color: #f8fafc; /* Slate 50 */
+}
+
+/* Grid cell alignment and sizing */
+.vgrid-cell {
+  padding: 0 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+
+/* Grid columns sizing and advanced typography */
+.vgrid-cell.col-project_id { 
+  width: 10%; 
+  font-family: 'JetBrains Mono', monospace; 
+  color: #38bdf8; 
+  font-weight: 500;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.15);
+}
+.vgrid-cell.col-project_name { 
+  width: 16%; 
+  font-weight: 500; 
+  color: #f1f5f9;
+}
+.vgrid-cell.col-project_status { 
+  width: 10%; 
+  justify-content: center; 
+}
+.vgrid-cell.col-automation_type { 
+  width: 12%; 
+  color: #94a3b8;
+}
+.vgrid-cell.col-budget_usd { 
+  width: 10%; 
+  justify-content: flex-end; 
+  font-family: 'JetBrains Mono', monospace; 
+  font-weight: 500;
+}
+.vgrid-cell.col-annual_savings_usd { 
+  width: 12%; 
+  justify-content: flex-end; 
+  font-family: 'JetBrains Mono', monospace; 
+  color: #a78bfa; /* Violet 400 */
+  font-weight: 500;
+}
+.vgrid-cell.col-roi_percent { 
+  width: 8%; 
+  justify-content: flex-end; 
+  font-family: 'JetBrains Mono', monospace; 
+  color: #34d399; /* Emerald 400 */
+  font-weight: 600;
+}
+.vgrid-cell.col-robots_deployed { 
+  width: 8%; 
+  justify-content: flex-end; 
+  font-family: 'JetBrains Mono', monospace; 
+  color: #f43f5e; /* Rose 500 */
+  font-weight: 500;
+}
+.vgrid-cell.col-country { 
+  width: 8%; 
+  color: #e2e8f0;
+}
+.vgrid-cell.col-industry { 
+  width: 10%; 
+  color: #e2e8f0;
+}
+
+/* Glassmorphic Status Badges */
+.status-badge {
+  padding: 1.5px 6px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+}
+.status-active { 
+  background-color: rgba(14, 165, 233, 0.1); 
+  color: #38bdf8; 
+  border: 1px solid rgba(14, 165, 233, 0.2); 
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+}
+.status-completed { 
+  background-color: rgba(16, 185, 129, 0.1); 
+  color: #10b981; 
+  border: 1px solid rgba(16, 185, 129, 0.2); 
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+.status-planned { 
+  background-color: rgba(100, 116, 139, 0.1); 
+  color: #94a3b8; 
+  border: 1px solid rgba(100, 116, 139, 0.2); 
+}
+.status-failed { 
+  background-color: rgba(239, 68, 68, 0.12); 
+  color: #f87171; 
+  border: 1px solid rgba(239, 68, 68, 0.25); 
+  text-shadow: 0 0 8px rgba(248, 113, 113, 0.3);
+}
+
+/* Row background alert flash animations with high-end aesthetic timing */
+@keyframes rowAlertFlash {
+  0% {
+    background-color: rgba(239, 68, 68, 0.25); /* Crimson Red */
+  }
+  100% {
+    background-color: rgba(15, 23, 42, 0.25);
+  }
+}
+
+@keyframes rowWarningFlash {
+  0% {
+    background-color: rgba(234, 179, 8, 0.18); /* Amber Warning */
+  }
+  100% {
+    background-color: rgba(15, 23, 42, 0.25);
+  }
+}
+
+.row-flash-alert {
+  animation: rowAlertFlash 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.row-flash-warn {
+  animation: rowWarningFlash 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
