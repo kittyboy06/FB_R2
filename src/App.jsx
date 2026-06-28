@@ -10,6 +10,7 @@ import { exportSnapshot } from './utils/exporter.js';
 import pipelineBuffer from './engine/pipelineBuffer.js';
 import gridEngine from './engine/gridEngine.js';
 import layoutStore from './engine/layoutStore.js';
+import kpiStore from './engine/kpiStore.js';
 
 export default function App() {
   const [inspectedRow, setInspectedRow] = useState(null);
@@ -21,6 +22,7 @@ export default function App() {
       window.gridEngine.pipelineBuffer = pipelineBuffer;
       window.filterStore = gridEngine.filterStore;
       window.fuzzySearch = gridEngine.fuzzySearch;
+      window.kpiStore = kpiStore;
     }
 
     pipelineBuffer.onFlush = (batch) => {
