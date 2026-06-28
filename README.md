@@ -2,7 +2,7 @@
 
 A high-density, real-time telemetry console built for the FrontEndBattle 2026 Hackathon (Round 2). This application displays and parses live telemetry data stream updates from a 50,000-row enterprise RPA database at 60 FPS with zero performance degradation.
 
-![Operator Dashboard Preview](C:\Users\afsal\.gemini\antigravity\brain\e4f4877b-87ac-4646-9334-665f923ae0dd\rpa_terminal_dashboard.png)
+![Operator Dashboard Preview](./rpa_terminal_dashboard.png)
 
 ## Core Architectural Guardrails (Zero-React Overhead)
 To handle a continuous 200ms tick firehose stream over 50,000 entries, this application employs a hybrid state engine that bypasses React's virtual DOM diffing:
