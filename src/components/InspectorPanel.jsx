@@ -20,13 +20,13 @@ export default function InspectorPanel({ rowData, onClose }) {
       {/* Backdrop */}
       <div 
         onClick={onClose} 
-        className="fixed inset-0 bg-black/70 z-[90] backdrop-blur-[2px] transition-opacity duration-200"
+        className="fixed inset-0 bg-black/75 z-[90] backdrop-blur-[3px] transition-opacity duration-200"
       />
 
-      {/* Slide-out Panel */}
-      <div className="fixed inset-y-0 right-0 z-[100] w-full max-w-[460px] bg-[#0b1326] border-l border-slate-800 shadow-[0_0_50px_rgba(0,0,0,0.85)] flex flex-col h-full select-none">
+      {/* Center Popup Card */}
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] w-[95vw] max-w-[550px] max-h-[85vh] bg-[#0c1427] border border-slate-800/80 rounded-lg shadow-[0_0_60px_rgba(56,189,248,0.12)] flex flex-col overflow-hidden select-none">
         
-        {/* Panel Header */}
+        {/* Header */}
         <div className="flex justify-between items-center p-4 border-b border-slate-800 bg-[#0f1930] shrink-0">
           <div>
             <span className="font-mono text-[9px] uppercase tracking-widest text-slate-500 font-bold block mb-0.5">
@@ -50,16 +50,16 @@ export default function InspectorPanel({ rowData, onClose }) {
           </button>
         </div>
 
-        {/* Panel Body */}
-        <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-6">
+        {/* Scrollable Body */}
+        <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-5">
           
           {/* Section 1: Identification */}
-          <div className="flex flex-col gap-3">
-            <div className="border-b border-slate-800 pb-1 flex items-center justify-between">
+          <div className="flex flex-col gap-2.5">
+            <div className="border-b border-slate-850 pb-1 flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
                 System Identification
               </span>
-              <span className="material-symbols-outlined text-[14px] text-slate-500">fingerprint</span>
+              <span className="material-symbols-outlined text-[13px] text-slate-500">fingerprint</span>
             </div>
             
             <div className="flex flex-col gap-2 bg-slate-950/45 p-3 rounded border border-slate-800/80">
@@ -91,22 +91,22 @@ export default function InspectorPanel({ rowData, onClose }) {
           </div>
 
           {/* Section 2: Financial Impact */}
-          <div className="flex flex-col gap-3">
-            <div className="border-b border-slate-800 pb-1 flex items-center justify-between">
+          <div className="flex flex-col gap-2.5">
+            <div className="border-b border-slate-850 pb-1 flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
                 Financial Metrics & ROI
               </span>
-              <span className="material-symbols-outlined text-[14px] text-slate-500">query_stats</span>
+              <span className="material-symbols-outlined text-[13px] text-slate-500">query_stats</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-slate-950/45 p-3 rounded border border-slate-800/80 flex flex-col justify-between">
+              <div className="bg-slate-950/45 p-2.5 rounded border border-slate-800/80 flex flex-col justify-between">
                 <span className="text-[9px] uppercase text-slate-500 font-bold">Allocated Budget</span>
                 <span className="font-mono text-sm text-slate-200 mt-1 font-bold">
                   {fmtCurrency(rowData.budget_usd)}
                 </span>
               </div>
-              <div className="bg-slate-950/45 p-3 rounded border border-slate-800/80 flex flex-col justify-between">
+              <div className="bg-slate-950/45 p-2.5 rounded border border-slate-800/80 flex flex-col justify-between">
                 <span className="text-[9px] uppercase text-slate-500 font-bold">Annual Savings</span>
                 <span className="font-mono text-sm text-emerald-400 mt-1 font-bold">
                   {fmtCurrency(rowData.annual_savings_usd)}
@@ -115,13 +115,13 @@ export default function InspectorPanel({ rowData, onClose }) {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-slate-950/45 p-3 rounded border border-slate-800/80 flex flex-col justify-between">
+              <div className="bg-slate-950/45 p-2.5 rounded border border-slate-800/80 flex flex-col justify-between">
                 <span className="text-[9px] uppercase text-slate-500 font-bold">Net Return (ROI)</span>
                 <span className={`font-mono text-sm mt-1 font-extrabold ${isRoiPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
                   {fmtPercent(rowData.roi_percent)}
                 </span>
               </div>
-              <div className="bg-slate-950/45 p-3 rounded border border-slate-800/80 flex flex-col justify-between">
+              <div className="bg-slate-950/45 p-2.5 rounded border border-slate-800/80 flex flex-col justify-between">
                 <span className="text-[9px] uppercase text-slate-500 font-bold">Hours Liberated</span>
                 <span className="font-mono text-sm text-sky-400 mt-1 font-bold">
                   {fmtNumber(rowData.employee_hours_saved)} hrs
@@ -131,12 +131,12 @@ export default function InspectorPanel({ rowData, onClose }) {
           </div>
 
           {/* Section 3: Telemetry Configuration */}
-          <div className="flex flex-col gap-3">
-            <div className="border-b border-slate-800 pb-1 flex items-center justify-between">
+          <div className="flex flex-col gap-2.5">
+            <div className="border-b border-slate-850 pb-1 flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
                 Operational Telemetry
               </span>
-              <span className="material-symbols-outlined text-[14px] text-slate-500">settings_system_daydream</span>
+              <span className="material-symbols-outlined text-[13px] text-slate-500">settings_system_daydream</span>
             </div>
 
             <div className="flex flex-col gap-2.5 bg-slate-950/45 p-3 rounded border border-slate-800/80">
@@ -167,15 +167,15 @@ export default function InspectorPanel({ rowData, onClose }) {
           </div>
 
           {/* Section 4: Timeline */}
-          <div className="flex flex-col gap-3">
-            <div className="border-b border-slate-800 pb-1 flex items-center justify-between">
+          <div className="flex flex-col gap-2.5">
+            <div className="border-b border-slate-850 pb-1 flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
                 Project Lifespan
               </span>
-              <span className="material-symbols-outlined text-[14px] text-slate-500">calendar_month</span>
+              <span className="material-symbols-outlined text-[13px] text-slate-500">calendar_month</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 bg-slate-950/45 p-3 rounded border border-slate-800/80 font-mono">
+            <div className="grid grid-cols-2 gap-3 bg-slate-950/45 p-2.5 rounded border border-slate-800/80 font-mono">
               <div className="flex flex-col">
                 <span className="text-[9px] uppercase text-slate-500 font-bold">Ingress Date</span>
                 <span className="text-xs text-slate-300 mt-0.5">{rowData.start_date || '—'}</span>
