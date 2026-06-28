@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import VirtualGridClass from './VirtualGrid.js';
 import gridEngine from '../engine/gridEngine.js';
 
 export default function VirtualGrid({ onInspectRow }) {
   const containerRef = useRef(null);
+  const [, setSortTick] = useState(0);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -31,6 +32,7 @@ export default function VirtualGrid({ onInspectRow }) {
     if (gridEngine.multiSortState && gridEngine.multiSortState.addOrToggle) {
       gridEngine.multiSortState.addOrToggle(colName, e.shiftKey);
       gridEngine.refreshViewPool();
+      setSortTick(prev => prev + 1);
     }
   };
 
