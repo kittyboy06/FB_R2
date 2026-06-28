@@ -13,7 +13,7 @@ try {
     parsedState = JSON.parse(saved);
   }
 } catch (e) {
-  console.warn("⚠️ [Layout Store] Failed to parse layout state from localStorage, falling back to defaults.");
+  console.warn("⚠️ Failed to parse layout state from localStorage, falling back to defaults.");
 }
 
 export const layoutStore = {
@@ -25,13 +25,12 @@ export const layoutStore = {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
       } catch (e) {
-        console.error("❌ [Layout Store] Failed to save layout state to localStorage:", e);
+        console.error("❌ Failed to save layout state to localStorage:", e);
       }
       this.render();
     }
   },
 
-  // Mutate panel DOM visibility directly to avoid React re-renders
   render() {
     Object.entries(this.state).forEach(([panel, visible]) => {
       const el = document.getElementById(`panel-${panel}`);
@@ -39,7 +38,6 @@ export const layoutStore = {
         el.style.display = visible ? '' : 'none';
       }
       
-      // Update checkmark state of buttons if they exist
       const btn = document.getElementById(`toggle-btn-${panel}`);
       if (btn) {
         if (visible) {

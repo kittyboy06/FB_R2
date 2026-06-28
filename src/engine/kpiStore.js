@@ -5,7 +5,6 @@ function generateSparklinePath(history, width = 100, height = 32) {
   const range = max - min || 1;
   return history.map((val, index) => {
     const x = (index / (history.length - 1)) * width;
-    // Scale y coordinates between 2 (top) and height-2 (bottom)
     const y = height - 2 - ((val - min) / range) * (height - 4);
     return `${index === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
   }).join(' ');
@@ -15,8 +14,6 @@ const kpiStore = {
   totalRows: 0,
   totalRobots: 0,
   totalSavings: 0,
-  
-  // Historical data arrays for real-time charting
   totalRowsHistory: [],
   totalSavingsHistory: [],
 
@@ -27,7 +24,6 @@ const kpiStore = {
       this.totalSavings += Number(row.annual_savings_usd) || 0;
     });
 
-    // Capture history points (limit to 30 ticks for rolling view)
     this.totalRowsHistory.push(this.totalRows);
     if (this.totalRowsHistory.length > 30) this.totalRowsHistory.shift();
 
@@ -40,7 +36,6 @@ const kpiStore = {
   nodes: {},
   register(key, node) {
     this.nodes[key] = node;
-    // Initial flush to populate current values
     this.flushNode(key);
   },
 

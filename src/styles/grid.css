@@ -1,8 +1,7 @@
-/* Recycled Grid row styling */
 .vgrid-row {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(135, 146, 154, 0.15); /* outline-variant */
+  border-bottom: 1px solid rgba(135, 146, 154, 0.15);
   background-color: #0b1326;
   color: #dae2fd;
   font-size: 0.75rem;
@@ -11,12 +10,11 @@
 }
 
 .vgrid-row:hover {
-  box-shadow: inset 2.5px 0 0 0 #38bdf8; /* primary-container */
+  box-shadow: inset 2.5px 0 0 0 #38bdf8;
   background-color: rgba(45, 52, 73, 0.3) !important;
   color: #ffffff;
 }
 
-/* Grid cell alignment and sizing */
 .vgrid-cell {
   padding: 0 12px;
   white-space: nowrap;
@@ -26,7 +24,6 @@
   align-items: center;
 }
 
-/* Grid columns sizing and advanced typography */
 .vgrid-cell.col-project_id { 
   width: 10%; 
   font-family: 'JetBrains Mono', monospace; 
@@ -45,7 +42,7 @@
 }
 .vgrid-cell.col-automation_type { 
   width: 12%; 
-  color: #bdc8d1; /* on-surface-variant */
+  color: #bdc8d1;
 }
 .vgrid-cell.col-budget_usd { 
   width: 10%; 
@@ -63,14 +60,14 @@
   width: 8%; 
   justify-content: flex-end; 
   font-family: 'JetBrains Mono', monospace; 
-  color: #34d399; /* Emerald */
+  color: #34d399;
   font-weight: 700;
 }
 .vgrid-cell.col-robots_deployed { 
   width: 8%; 
   justify-content: flex-end; 
   font-family: 'JetBrains Mono', monospace; 
-  color: #f87171; /* Rose/Red */
+  color: #f87171;
   font-weight: 500;
 }
 .vgrid-cell.col-country { 
@@ -82,7 +79,6 @@
   color: #dae2fd;
 }
 
-/* Glassmorphic Status Badges */
 .status-badge {
   padding: 2px 6px;
   border-radius: 4px;
@@ -117,10 +113,9 @@
   animation: pulse-error 1.5s infinite;
 }
 
-/* Row background alert flash animations with high-end aesthetic timing */
 @keyframes rowAlertFlash {
   0% {
-    background-color: rgba(239, 68, 68, 0.25); /* Crimson Red */
+    background-color: rgba(239, 68, 68, 0.25);
   }
   100% {
     background-color: #0b1326;
@@ -129,7 +124,7 @@
 
 @keyframes rowWarningFlash {
   0% {
-    background-color: rgba(234, 179, 8, 0.18); /* Amber Warning */
+    background-color: rgba(234, 179, 8, 0.18);
   }
   100% {
     background-color: #0b1326;
@@ -144,7 +139,6 @@
   animation: rowWarningFlash 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Pause inspector hover state */
 body.ingest-paused .vgrid-row {
   cursor: pointer;
 }
@@ -152,4 +146,3 @@ body.ingest-paused .vgrid-row:hover {
   background-color: rgba(56, 189, 248, 0.08) !important;
   box-shadow: inset 3px 0 0 0 #38bdf8;
 }
-

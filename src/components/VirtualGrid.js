@@ -6,17 +6,15 @@ class VirtualGrid {
   constructor(containerEl, rowHeight = 36) {
     this.container = containerEl;
     this.rowHeight = rowHeight;
-    this.viewPool = [];      // Full filtered and sorted dataset
-    this.visibleCount = 0;   // Count of visible rows based on container height
+    this.viewPool = [];
+    this.visibleCount = 0;
     this.scrollTop = 0;
     this.startIndex = 0;
 
-    // Create scroller height phantom
     this.scroller = document.createElement('div');
     this.scroller.style.width = '1px';
     this.scroller.style.height = '0px';
 
-    // Create absolute container for active rows
     this.rowContainer = document.createElement('div');
     this.rowContainer.style.position = 'absolute';
     this.rowContainer.style.top = '0';
@@ -28,14 +26,13 @@ class VirtualGrid {
     this.container.appendChild(this.scroller);
     this.container.appendChild(this.rowContainer);
 
-    // Create empty state overlay
     this.emptyOverlay = document.createElement('div');
     this.emptyOverlay.textContent = 'No matching RPA projects found.';
     this.emptyOverlay.style.position = 'absolute';
     this.emptyOverlay.style.top = '40px';
     this.emptyOverlay.style.left = '50%';
     this.emptyOverlay.style.transform = 'translateX(-50%)';
-    this.emptyOverlay.style.color = '#94a3b8'; // Slate 400
+    this.emptyOverlay.style.color = '#94a3b8';
     this.emptyOverlay.style.fontSize = '13px';
     this.emptyOverlay.style.fontWeight = '600';
     this.emptyOverlay.style.display = 'none';
@@ -43,14 +40,12 @@ class VirtualGrid {
     this.container.appendChild(this.emptyOverlay);
 
     this.container.addEventListener('scroll', () => this.onScroll(), { passive: true });
-    this.domRows = []; // Fixed pool of recycled row DOM nodes
+    this.domRows = [];
     this.init();
   }
 
   init() {
-    // Minimum 25 rows to ensure container is fully populated even if clientHeight is 0 on mount
     this.visibleCount = Math.max(25, Math.ceil(this.container.clientHeight / this.rowHeight) + 2);
-    // Create the fixed DOM pool
     for (let i = 0; i < this.visibleCount; i++) {
       const rowEl = this.createRowEl();
       this.rowContainer.appendChild(rowEl);
@@ -64,9 +59,8 @@ class VirtualGrid {
     tr.style.height = `${this.rowHeight}px`;
     tr.style.position = 'absolute';
     tr.style.width = '100%';
-    tr.style.display = 'none'; // Hidden until filled
+    tr.style.display = 'none';
 
-    // Row Click Inspector trigger when paused
     tr.addEventListener('click', () => {
       if (pipelineBuffer.isPaused && tr._rowData) {
         this.container.dispatchEvent(new CustomEvent('inspect-row', {
@@ -120,7 +114,6 @@ class VirtualGrid {
   render() {
     this.startIndex = Math.floor(this.scrollTop / this.rowHeight);
 
-    // Dynamically grow the DOM rows pool if the container height expands (e.g. window resize or delayed load)
     const needed = Math.ceil(this.container.clientHeight / this.rowHeight) + 2;
     if (needed > this.domRows.length) {
       for (let i = this.domRows.length; i < needed; i++) {
@@ -155,7 +148,6 @@ class VirtualGrid {
     cells[0].textContent = row.project_id || '—';
     cells[1].textContent = row.project_name || '—';
 
-    // Status Badge (no innerHTML)
     const badge = cells[2].firstElementChild;
     if (badge) {
       const status = row.project_status || 'Planned';
@@ -171,7 +163,6 @@ class VirtualGrid {
     cells[8].textContent = row.country || '—';
     cells[9].textContent = row.industry || '—';
 
-    // Apply flash animations
     applyRowAlert(rowEl, row);
   }
 }

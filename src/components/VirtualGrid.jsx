@@ -8,14 +8,11 @@ export default function VirtualGrid({ onInspectRow }) {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Clear container (handle StrictMode double-render / HMR)
     containerRef.current.innerHTML = '';
 
-    // Instantiate high-performance virtualized grid viewport
     const vg = new VirtualGridClass(containerRef.current);
     gridEngine.virtualGrid = vg;
 
-    // Initial render
     gridEngine.refreshViewPool();
 
     const container = containerRef.current;
@@ -30,7 +27,6 @@ export default function VirtualGrid({ onInspectRow }) {
     };
   }, [onInspectRow]);
 
-  // Header sorting click trigger (supports Shift+click)
   const handleHeaderClick = (colName, e) => {
     if (gridEngine.multiSortState && gridEngine.multiSortState.addOrToggle) {
       gridEngine.multiSortState.addOrToggle(colName, e.shiftKey);
@@ -38,7 +34,6 @@ export default function VirtualGrid({ onInspectRow }) {
     }
   };
 
-  // Helper to render sorting indicators as Material Symbols
   const renderSortIndicator = (colName) => {
     if (!gridEngine.multiSortState || !gridEngine.multiSortState.keys) return null;
     const sortKey = gridEngine.multiSortState.keys.find(k => k.column === colName);
@@ -52,7 +47,6 @@ export default function VirtualGrid({ onInspectRow }) {
 
   return (
     <div className="flex flex-col flex-1 bg-[#060e20] border border-slate-800 rounded overflow-hidden">
-      {/* Fixed Headers */}
       <div className="flex w-full bg-slate-900 border-b border-slate-800 py-2.5 text-slate-400 font-mono text-[10px] uppercase tracking-wider select-none pr-[17px]">
         <div className="vgrid-cell col-project_id">Project ID</div>
         <div className="vgrid-cell col-project_name">Project Name</div>
@@ -103,7 +97,6 @@ export default function VirtualGrid({ onInspectRow }) {
         <div className="vgrid-cell col-industry">Industry</div>
       </div>
 
-      {/* Recycled Rows Container */}
       <div 
         ref={containerRef} 
         className="w-full overflow-y-auto"

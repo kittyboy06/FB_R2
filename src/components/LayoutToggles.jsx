@@ -3,7 +3,6 @@ import layoutStore from '../engine/layoutStore.js';
 
 export default function LayoutToggles() {
   useEffect(() => {
-    // Sync button status with layoutStore state on mount
     layoutStore.init();
   }, []);
 
@@ -19,7 +18,6 @@ export default function LayoutToggles() {
         Panels
       </span>
       
-      {/* Grid Window Toggle */}
       <button
         id="toggle-btn-gridWindow"
         onClick={() => handleToggle('gridWindow')}
@@ -28,7 +26,6 @@ export default function LayoutToggles() {
         Grid View
       </button>
 
-      {/* Analytics Chart Toggle */}
       <button
         id="toggle-btn-analyticsChart"
         onClick={() => handleToggle('analyticsChart')}
@@ -37,7 +34,6 @@ export default function LayoutToggles() {
         Charts
       </button>
 
-      {/* Infrastructure Toggles */}
       <button
         id="toggle-btn-infraToggles"
         onClick={() => handleToggle('infraToggles')}

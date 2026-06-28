@@ -17,16 +17,13 @@ export default function InspectorPanel({ rowData, onClose }) {
 
   return (
     <>
-      {/* Backdrop */}
       <div 
         onClick={onClose} 
         className="fixed inset-0 bg-black/75 z-[90] backdrop-blur-[3px] transition-opacity duration-200"
       />
 
-      {/* Center Popup Card */}
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] w-[95vw] max-w-[550px] max-h-[85vh] bg-[#0c1427] border border-slate-800/80 rounded-lg shadow-[0_0_60px_rgba(56,189,248,0.12)] flex flex-col overflow-hidden select-none">
         
-        {/* Header */}
         <div className="flex justify-between items-center p-4 border-b border-slate-800 bg-[#0f1930] shrink-0">
           <div>
             <span className="font-mono text-[9px] uppercase tracking-widest text-slate-500 font-bold block mb-0.5">
@@ -50,10 +47,8 @@ export default function InspectorPanel({ rowData, onClose }) {
           </button>
         </div>
 
-        {/* Scrollable Body */}
         <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-5">
           
-          {/* Section 1: Identification */}
           <div className="flex flex-col gap-2.5">
             <div className="border-b border-slate-850 pb-1 flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
@@ -90,7 +85,6 @@ export default function InspectorPanel({ rowData, onClose }) {
             </div>
           </div>
 
-          {/* Section 2: Financial Impact */}
           <div className="flex flex-col gap-2.5">
             <div className="border-b border-slate-850 pb-1 flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
@@ -130,7 +124,6 @@ export default function InspectorPanel({ rowData, onClose }) {
             </div>
           </div>
 
-          {/* Section 3: Telemetry Configuration */}
           <div className="flex flex-col gap-2.5">
             <div className="border-b border-slate-850 pb-1 flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
@@ -166,7 +159,6 @@ export default function InspectorPanel({ rowData, onClose }) {
             </div>
           </div>
 
-          {/* Section 4: Timeline */}
           <div className="flex flex-col gap-2.5">
             <div className="border-b border-slate-850 pb-1 flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">

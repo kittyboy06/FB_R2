@@ -13,7 +13,6 @@ export default function App() {
   const [inspectedRow, setInspectedRow] = useState(null);
 
   useEffect(() => {
-    // Expose core engines for console inspection and E2E verification
     if (typeof window !== 'undefined') {
       window.gridEngine = gridEngine;
       window.gridEngine.pipelineBuffer = pipelineBuffer;
@@ -21,16 +20,12 @@ export default function App() {
       window.fuzzySearch = gridEngine.fuzzySearch;
     }
 
-    // Connect pipeline buffer flush callback to gridEngine processing pipeline
     pipelineBuffer.onFlush = (batch) => {
       gridEngine.process(batch);
     };
 
-    // Initialize telemetry stream
     if (typeof window !== 'undefined' && window.initializeRpaStream) {
       const csvPath = `${import.meta.env.BASE_URL}rpa_database_2026.csv`;
-      
-      // Load 50k baseline rows into masterMap
       gridEngine.loadBaseline(csvPath);
 
       window.initializeRpaStream((incomingBatch) => {
@@ -38,7 +33,6 @@ export default function App() {
       }, csvPath);
     }
 
-    // Sync layout states directly on DOM after mounting has completed
     setTimeout(() => {
       layoutStore.init();
     }, 100);
@@ -50,7 +44,6 @@ export default function App() {
 
   return (
     <div className="h-screen w-full flex flex-col bg-[#0b1326] text-[#dae2fd] overflow-hidden font-sans selection:bg-[#38bdf8]/20 select-none">
-      {/* Top Header Section (Mission Control Bar) */}
       <header className="bg-[#0b1326] border-b border-slate-800 flex justify-between items-center px-4 w-full h-16 shrink-0 z-50">
         <div className="flex items-center gap-3">
           <div className="w-2 h-2 rounded-full bg-emerald-500 glow-pulse-emerald"></div>
@@ -62,7 +55,6 @@ export default function App() {
           </span>
         </div>
         
-        {/* Controls strip: Toggles + Pause Button */}
         <div className="flex items-center gap-3">
           <LayoutToggles />
           <div className="w-px h-6 bg-slate-800 mx-1"></div>
@@ -70,22 +62,16 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main Scrollable Content Area */}
       <main className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
-        {/* Live KPIs Dashboard */}
         <KpiStrip />
 
-        {/* Dynamic Search & Categorical Filters */}
         <FilterBar />
 
-        {/* Main Grid View Panel */}
         <div id="panel-gridWindow" className="w-full flex flex-col shrink-0">
           <VirtualGrid onInspectRow={setInspectedRow} />
         </div>
 
-        {/* Side-by-Side Auxiliary Panels (Charts + Infrastructure Toggles) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 shrink-0 pb-4">
-          {/* Analytics Chart Panel */}
           <div 
             id="panel-analyticsChart"
             className="bg-slate-900/60 border border-slate-800 rounded p-4 flex flex-col gap-3 card-inner-glow hover:bg-slate-900/85 transition-colors duration-200"
@@ -118,7 +104,6 @@ export default function App() {
               </div>
             </div>
             
-            {/* Simulated chart bars */}
             <div className="flex flex-col gap-1.5 mt-1">
               <span className="text-slate-500 text-[9px] uppercase font-bold">CPU Core Load Allocation</span>
               <div className="h-1.5 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
@@ -131,7 +116,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Infrastructure Nodes Panel */}
           <div 
             id="panel-infraToggles"
             className="bg-slate-900/60 border border-slate-800 rounded p-4 flex flex-col gap-3 card-inner-glow hover:bg-slate-900/85 transition-colors duration-200"
@@ -146,7 +130,6 @@ export default function App() {
             </div>
 
             <div className="flex flex-col gap-2.5">
-              {/* Ingest Node */}
               <div className="flex justify-between items-center bg-slate-950/60 p-2 rounded border border-slate-800/80">
                 <div className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -155,7 +138,6 @@ export default function App() {
                 <span className="text-[9px] text-emerald-400 font-mono uppercase font-bold">Node Active</span>
               </div>
 
-              {/* Virtualizer Thread */}
               <div className="flex justify-between items-center bg-slate-950/60 p-2 rounded border border-slate-800/80">
                 <div className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -164,7 +146,6 @@ export default function App() {
                 <span className="text-[9px] text-emerald-400 font-mono uppercase font-bold">60 FPS Synced</span>
               </div>
 
-              {/* DB Map Router */}
               <div className="flex justify-between items-center bg-slate-950/60 p-2 rounded border border-slate-800/80">
                 <div className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -173,7 +154,6 @@ export default function App() {
                 <span className="text-[9px] text-emerald-400 font-mono uppercase font-bold">Active</span>
               </div>
               
-              {/* Pages Sync */}
               <div className="flex justify-between items-center bg-slate-950/60 p-2 rounded border border-slate-800/80">
                 <div className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
@@ -186,7 +166,6 @@ export default function App() {
         </div>
       </main>
 
-      {/* Footer Info Status Bar */}
       <footer className="bg-slate-950 border-t border-slate-800 flex justify-between items-center px-4 w-full shrink-0 h-8 cursor-default select-none">
         <div className="flex items-center gap-2 font-mono text-[9px] text-sky-400 font-semibold">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 glow-pulse-emerald"></span>
@@ -206,7 +185,6 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Slide-out Detailed Inspector Panel */}
       {inspectedRow && (
         <InspectorPanel 
           rowData={inspectedRow} 
