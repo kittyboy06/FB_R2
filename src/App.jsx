@@ -6,6 +6,7 @@ import PauseButton from './components/PauseButton.jsx';
 import LayoutToggles from './components/LayoutToggles.jsx';
 import InspectorPanel from './components/InspectorPanel.jsx';
 import AnalyticsOverlay from './components/AnalyticsOverlay.jsx';
+import { exportSnapshot } from './utils/exporter.js';
 import pipelineBuffer from './engine/pipelineBuffer.js';
 import gridEngine from './engine/gridEngine.js';
 import layoutStore from './engine/layoutStore.js';
@@ -51,6 +52,11 @@ export default function App() {
     };
   }, []);
 
+  const handleExportCSV = () => {
+    const pool = gridEngine.virtualGrid?.viewPool || [];
+    exportSnapshot(pool);
+  };
+
   return (
     <div className="h-screen w-full flex flex-col bg-[#0b1326] text-[#dae2fd] overflow-hidden font-sans selection:bg-[#38bdf8]/20 select-none">
       <header className="bg-[#0b1326] border-b border-slate-800 flex justify-between items-center px-4 w-full h-16 shrink-0 z-50">
@@ -74,6 +80,14 @@ export default function App() {
           >
             <span className="material-symbols-outlined text-[14px]">query_stats</span>
             Analytics View
+          </button>
+          <button
+            id="export-csv-btn"
+            onClick={handleExportCSV}
+            className="px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider select-none flex items-center gap-2 border transition-all duration-200 cursor-pointer shadow-lg bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700/80 hover:text-white"
+          >
+            <span className="material-symbols-outlined text-[14px]">download</span>
+            Export Snapshot
           </button>
           <PauseButton />
         </div>
