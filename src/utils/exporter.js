@@ -3,22 +3,23 @@ export function exportSnapshot(pool) {
 
   const headers = [
     'project_id',
+    'company_id',
     'project_name',
+    'start_date',
+    'completion_date',
     'project_status',
     'automation_type',
+    'robots_deployed',
     'budget_usd',
     'annual_savings_usd',
     'roi_percent',
-    'robots_deployed',
+    'department',
+    'implementation_partner',
     'country',
     'industry',
-    'start_date',
-    'completion_date',
     'employee_hours_saved',
     'ai_enabled',
-    'cloud_deployment',
-    'company_id',
-    'implementation_partner'
+    'cloud_deployment'
   ];
 
   const workerCode = `
