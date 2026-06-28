@@ -5,6 +5,7 @@ const pipelineBuffer = {
 
   pause() {
     this.isPaused = true;
+    document.body.classList.add('ingest-paused');
     const btn = document.getElementById('pause-btn');
     if (btn) {
       btn.innerHTML = `
@@ -19,6 +20,7 @@ const pipelineBuffer = {
 
   play() {
     this.isPaused = false;
+    document.body.classList.remove('ingest-paused');
     const btn = document.getElementById('pause-btn');
     if (btn) {
       btn.innerHTML = `

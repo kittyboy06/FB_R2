@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import VirtualGridClass from './VirtualGrid.js';
 import gridEngine from '../engine/gridEngine.js';
 
-export default function VirtualGrid() {
+export default function VirtualGrid({ onInspectRow }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -18,10 +18,17 @@ export default function VirtualGrid() {
     // Initial render
     gridEngine.refreshViewPool();
 
+    const container = containerRef.current;
+    const handleInspect = (e) => {
+      onInspectRow?.(e.detail);
+    };
+    container.addEventListener('inspect-row', handleInspect);
+
     return () => {
       gridEngine.virtualGrid = null;
+      container.removeEventListener('inspect-row', handleInspect);
     };
-  }, []);
+  }, [onInspectRow]);
 
   // Header sorting click trigger (supports Shift+click)
   const handleHeaderClick = (colName, e) => {

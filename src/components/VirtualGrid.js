@@ -1,5 +1,6 @@
 import { fmtCurrency, fmtPercent, fmtNumber } from '../utils/formatters.js';
 import { applyRowAlert } from '../utils/alertStyles.js';
+import pipelineBuffer from '../engine/pipelineBuffer.js';
 
 class VirtualGrid {
   constructor(containerEl, rowHeight = 36) {
@@ -64,6 +65,16 @@ class VirtualGrid {
     tr.style.position = 'absolute';
     tr.style.width = '100%';
     tr.style.display = 'none'; // Hidden until filled
+
+    // Row Click Inspector trigger when paused
+    tr.addEventListener('click', () => {
+      if (pipelineBuffer.isPaused && tr._rowData) {
+        this.container.dispatchEvent(new CustomEvent('inspect-row', {
+          bubbles: true,
+          detail: tr._rowData
+        }));
+      }
+    });
 
     const cols = [
       'project_id',
@@ -137,6 +148,7 @@ class VirtualGrid {
   }
 
   updateRowCells(rowEl, row) {
+    rowEl._rowData = row;
     const cells = rowEl.children;
     if (cells.length < 10) return;
 

@@ -1,18 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import KpiStrip from './components/KpiStrip.jsx';
 import FilterBar from './components/FilterBar.jsx';
 import VirtualGrid from './components/VirtualGrid.jsx';
 import PauseButton from './components/PauseButton.jsx';
 import LayoutToggles from './components/LayoutToggles.jsx';
+import InspectorPanel from './components/InspectorPanel.jsx';
 import pipelineBuffer from './engine/pipelineBuffer.js';
 import gridEngine from './engine/gridEngine.js';
 import layoutStore from './engine/layoutStore.js';
 
 export default function App() {
+  const [inspectedRow, setInspectedRow] = useState(null);
+
   useEffect(() => {
     // Expose core engines for console inspection and E2E verification
     if (typeof window !== 'undefined') {
       window.gridEngine = gridEngine;
+      window.gridEngine.pipelineBuffer = pipelineBuffer;
       window.filterStore = gridEngine.filterStore;
       window.fuzzySearch = gridEngine.fuzzySearch;
     }
@@ -76,7 +80,7 @@ export default function App() {
 
         {/* Main Grid View Panel */}
         <div id="panel-gridWindow" className="w-full flex flex-col shrink-0">
-          <VirtualGrid />
+          <VirtualGrid onInspectRow={setInspectedRow} />
         </div>
 
         {/* Side-by-Side Auxiliary Panels (Charts + Infrastructure Toggles) */}
@@ -201,6 +205,14 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Slide-out Detailed Inspector Panel */}
+      {inspectedRow && (
+        <InspectorPanel 
+          rowData={inspectedRow} 
+          onClose={() => setInspectedRow(null)} 
+        />
+      )}
     </div>
   );
 }
