@@ -16,6 +16,7 @@ const pipelineBuffer = {
       `;
       btn.className = "px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wider select-none flex items-center gap-2 border transition-all duration-200 cursor-pointer shadow-lg bg-emerald-600/20 text-emerald-400 border-emerald-500/30 hover:bg-emerald-600/35 shadow-emerald-950/20";
     }
+    window.dispatchEvent(new CustomEvent('ingest-pause-state', { detail: { isPaused: true } }));
   },
 
   play() {
@@ -36,6 +37,7 @@ const pipelineBuffer = {
       this.queue = [];
       this.onFlush(flattened);
     }
+    window.dispatchEvent(new CustomEvent('ingest-pause-state', { detail: { isPaused: false } }));
   },
 
   ingest(batch) {
