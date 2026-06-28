@@ -18,7 +18,6 @@ const filterStore = {
     });
   },
 
-  // Dynamically derive filter dropdown lists from loaded masterMap data to prevent hardcoding
   getUniqueOptions(field, masterMap) {
     const options = new Set();
     masterMap.forEach(row => {

@@ -13,9 +13,7 @@ const gridEngine = {
   multiSortState: multiSortState,
 
   process(batch) {
-    // Console manual test hook verification trigger
     if (typeof window !== 'undefined' && window.__testAlert && batch.length > 0) {
-      // Target the top visible row in the scroll pool to guarantee it flashes on screen
       let targetRow = null;
       if (this.virtualGrid && this.virtualGrid.viewPool.length > 0) {
         const visibleIdx = this.virtualGrid.startIndex || 0;
@@ -31,11 +29,9 @@ const gridEngine = {
     }
 
     batch.forEach(row => {
-      // Shallow clone to prevent stream array memory reference retention
       this.masterMap.set(row.internal_uid, { ...row });
     });
 
-    // Accumulate metrics if kpiStore is loaded
     if (this.kpiStore && this.kpiStore.process) {
       this.kpiStore.process(batch);
     }
@@ -77,22 +73,18 @@ const gridEngine = {
   refreshViewPool() {
     let pool = Array.from(this.masterMap.values());
 
-    // Apply categorical filters
     if (this.filterStore && this.filterStore.apply) {
       pool = this.filterStore.apply(pool);
     }
 
-    // Apply fuzzy search
     if (this.fuzzySearch && this.fuzzySearch.apply) {
       pool = this.fuzzySearch.apply(pool);
     }
 
-    // Apply multi-column sorting
     if (this.multiSortState && this.multiSortState.apply) {
       pool = this.multiSortState.apply(pool);
     }
 
-    // Push derived view pool to the virtual grid
     if (this.virtualGrid && this.virtualGrid.setData) {
       this.virtualGrid.setData(pool);
     }
