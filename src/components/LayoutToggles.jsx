@@ -3,7 +3,7 @@ import layoutStore from '../engine/layoutStore.js';
 
 export default function LayoutToggles() {
   useEffect(() => {
-    // Sync buttons status with stored state on mount
+    // Sync button status with layoutStore state on mount
     layoutStore.init();
   }, []);
 
@@ -11,9 +11,11 @@ export default function LayoutToggles() {
     layoutStore.toggle(panel);
   };
 
+  const initialVisibleClass = "px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded border transition-all duration-150 cursor-pointer bg-sky-500/15 text-sky-400 border-sky-500/30 shadow-[0_0_8px_rgba(56,189,248,0.1)]";
+
   return (
-    <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 p-2 rounded-lg shadow shadow-slate-950 select-none">
-      <span className="text-slate-400 text-[10px] font-bold uppercase tracking-wider px-2">
+    <div className="flex items-center gap-1.5 bg-slate-950/60 border border-slate-800/80 p-1.5 rounded select-none">
+      <span className="text-slate-400 text-[9px] font-bold uppercase tracking-widest px-1.5">
         Panels
       </span>
       
@@ -21,7 +23,7 @@ export default function LayoutToggles() {
       <button
         id="toggle-btn-gridWindow"
         onClick={() => handleToggle('gridWindow')}
-        className="px-3 py-1 text-[11px] font-semibold rounded border transition-colors cursor-pointer"
+        className={initialVisibleClass}
       >
         Grid View
       </button>
@@ -30,7 +32,7 @@ export default function LayoutToggles() {
       <button
         id="toggle-btn-analyticsChart"
         onClick={() => handleToggle('analyticsChart')}
-        className="px-3 py-1 text-[11px] font-semibold rounded border transition-colors cursor-pointer"
+        className={initialVisibleClass}
       >
         Charts
       </button>
@@ -39,7 +41,7 @@ export default function LayoutToggles() {
       <button
         id="toggle-btn-infraToggles"
         onClick={() => handleToggle('infraToggles')}
-        className="px-3 py-1 text-[11px] font-semibold rounded border transition-colors cursor-pointer"
+        className={initialVisibleClass}
       >
         Infrastructure
       </button>

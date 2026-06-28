@@ -43,11 +43,9 @@ export const layoutStore = {
       const btn = document.getElementById(`toggle-btn-${panel}`);
       if (btn) {
         if (visible) {
-          btn.classList.add('bg-sky-600', 'text-white', 'border-sky-500');
-          btn.classList.remove('bg-slate-900', 'text-slate-400', 'border-slate-800');
+          btn.className = "px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded border transition-all duration-150 cursor-pointer bg-sky-500/15 text-sky-400 border-sky-500/30 shadow-[0_0_8px_rgba(56,189,248,0.1)]";
         } else {
-          btn.classList.remove('bg-sky-600', 'text-white', 'border-sky-500');
-          btn.classList.add('bg-slate-900', 'text-slate-400', 'border-slate-800');
+          btn.className = "px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded border transition-all duration-150 cursor-pointer bg-slate-950/40 text-slate-500 border-slate-800/80";
         }
       }
     });

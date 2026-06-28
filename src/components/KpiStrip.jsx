@@ -22,65 +22,75 @@ function KpiValue({ kpiKey, className }) {
   return <span ref={ref} className={className} />;
 }
 
+function KpiSparkline({ kpiKey, className }) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    
+    // Register the SVG path node into the DOM KPI store
+    kpiStore.register(kpiKey, ref.current);
+
+    return () => {
+      kpiStore.unregister(kpiKey);
+    };
+  }, [kpiKey]);
+
+  return (
+    <div className="absolute bottom-0 left-0 w-full h-8 opacity-25">
+      <svg className="w-full h-full fill-none" preserveAspectRatio="none" viewBox="0 0 100 32">
+        <path ref={ref} className={className} strokeWidth="1.5" d="" />
+      </svg>
+    </div>
+  );
+}
+
 export default function KpiStrip() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      {/* Total Streamed Rows card */}
-      <div className="glass-panel rounded-lg p-5 flex flex-col justify-between relative overflow-hidden group">
-        <div className="absolute top-0 left-0 w-[3px] h-full bg-sky-500 shadow-[0_0_12px_rgba(14,165,233,0.6)]" />
-        <div className="flex justify-between items-center">
-          <span className="text-slate-400 text-[10px] font-bold uppercase tracking-wider">
-            Total Streamed Rows
-          </span>
-          <span className="text-sky-500/20 group-hover:text-sky-500/40 transition-colors duration-300">
-            <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7zm0 4h16m-8 4h8" />
-            </svg>
-          </span>
+    <section className="grid grid-cols-1 md:grid-cols-3 gap-4 shrink-0 mb-4 select-none">
+      {/* KPI 1: Total Records Processed */}
+      <div className="bg-slate-900/60 border-t-2 border-[#38bdf8] rounded p-4 flex flex-col gap-1 card-inner-glow relative overflow-hidden group hover:bg-slate-900/85 transition-colors duration-200">
+        <div className="flex justify-between items-center text-slate-400">
+          <span className="font-mono text-[10px] uppercase tracking-widest">Total Records Processed</span>
+          <span className="material-symbols-outlined text-[16px] text-sky-400">database</span>
         </div>
-        <div className="mt-4 flex items-baseline gap-2">
-          <KpiValue kpiKey="totalRows" className="font-mono-data text-3xl font-extrabold text-sky-400 text-glow-sky" />
-          <span className="text-slate-500 text-[10px] uppercase tracking-wider font-bold select-none">records</span>
+        <div className="flex items-baseline gap-1 mt-1">
+          <KpiValue kpiKey="totalRows" className="font-sans text-3xl font-extrabold text-white drop-shadow-[0_0_8px_rgba(56,189,248,0.35)]" />
+          <span className="font-mono text-[10px] text-sky-400 font-bold">RECORDS</span>
+        </div>
+        {/* Real-Time Sparkline */}
+        <KpiSparkline kpiKey="totalRowsSparkline" className="stroke-sky-400" />
+      </div>
+
+      {/* KPI 2: Active Automation Bots */}
+      <div className="bg-slate-900/60 border-t-2 border-[#10b981] rounded p-4 flex flex-col gap-1 card-inner-glow relative overflow-hidden group hover:bg-slate-900/85 transition-colors duration-200">
+        <div className="flex justify-between items-center text-slate-400">
+          <span className="font-mono text-[10px] uppercase tracking-widest">Active Automation Bots</span>
+          <span className="material-symbols-outlined text-[16px] text-[#10b981]">smart_toy</span>
+        </div>
+        <div className="flex items-baseline gap-1 mt-1">
+          <KpiValue kpiKey="totalRobots" className="font-sans text-3xl font-extrabold text-white drop-shadow-[0_0_8px_rgba(16,185,129,0.35)]" />
+          <span className="font-mono text-[10px] text-[#10b981] font-bold">BOTS</span>
+        </div>
+        <div className="flex items-center gap-1.5 mt-2">
+          <span className="w-1.5 h-1.5 bg-[#10b981] rounded-full glow-pulse-emerald"></span>
+          <span className="font-mono text-[10px] text-[#10b981] font-semibold">Cluster optimal</span>
         </div>
       </div>
 
-      {/* Active Robots card */}
-      <div className="glass-panel rounded-lg p-5 flex flex-col justify-between relative overflow-hidden group">
-        <div className="absolute top-0 left-0 w-[3px] h-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.6)]" />
-        <div className="flex justify-between items-center">
-          <span className="text-slate-400 text-[10px] font-bold uppercase tracking-wider">
-            Active Robots Deployed
-          </span>
-          <span className="text-emerald-500/20 group-hover:text-emerald-500/40 transition-colors duration-300">
-            <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-            </svg>
-          </span>
+      {/* KPI 3: Financial Impact */}
+      <div className="bg-slate-900/60 border-t-2 border-[#8b5cf6] rounded p-4 flex flex-col gap-1 card-inner-glow relative overflow-hidden group hover:bg-slate-900/85 transition-colors duration-200">
+        <div className="flex justify-between items-center text-slate-400">
+          <span className="font-mono text-[10px] uppercase tracking-widest">Financial Impact (YTD)</span>
+          <span className="material-symbols-outlined text-[16px] text-[#8b5cf6]">payments</span>
         </div>
-        <div className="mt-4 flex items-baseline gap-2">
-          <KpiValue kpiKey="totalRobots" className="font-mono-data text-3xl font-extrabold text-emerald-400 text-glow-emerald" />
-          <span className="text-slate-500 text-[10px] uppercase tracking-wider font-bold select-none">bots</span>
+        <div className="flex items-baseline gap-1 mt-1">
+          <KpiValue kpiKey="totalSavings" className="font-sans text-3xl font-extrabold text-white drop-shadow-[0_0_8px_rgba(139,92,246,0.35)]" />
+          <span className="font-mono text-[10px] text-[#8b5cf6] font-bold">USD</span>
         </div>
+        {/* Real-Time Sparkline */}
+        <KpiSparkline kpiKey="totalSavingsSparkline" className="stroke-[#8b5cf6]" />
       </div>
-
-      {/* Cumulative Savings card */}
-      <div className="glass-panel rounded-lg p-5 flex flex-col justify-between relative overflow-hidden group">
-        <div className="absolute top-0 left-0 w-[3px] h-full bg-violet-500 shadow-[0_0_12px_rgba(139,92,246,0.6)]" />
-        <div className="flex justify-between items-center">
-          <span className="text-slate-400 text-[10px] font-bold uppercase tracking-wider">
-            Global Cumulative Savings
-          </span>
-          <span className="text-violet-500/20 group-hover:text-violet-500/40 transition-colors duration-300">
-            <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </span>
-        </div>
-        <div className="mt-4 flex items-baseline gap-2">
-          <KpiValue kpiKey="totalSavings" className="font-mono-data text-3xl font-extrabold text-violet-400 text-glow-purple" />
-          <span className="text-slate-500 text-[10px] uppercase tracking-wider font-bold select-none">USD</span>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }

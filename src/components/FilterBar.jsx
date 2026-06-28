@@ -10,7 +10,7 @@ export default function FilterBar() {
   const [automationTypes, setAutomationTypes] = useState([]);
   const [industries, setIndustries] = useState([]);
 
-  // Wait for masterMap to load baseline CSV data, then populate dropdown options dynamically
+  // Populate dynamic dropdown options from the dataset
   useEffect(() => {
     const timer = setInterval(() => {
       if (masterMap.size > 0) {
@@ -23,7 +23,7 @@ export default function FilterBar() {
     return () => clearInterval(timer);
   }, []);
 
-  // Debounce fuzzy search input updates to prevent thread congestion during typing
+  // Update debounced fuzzy search query
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       fuzzySearch.set(searchVal);
@@ -39,70 +39,48 @@ export default function FilterBar() {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-4 glass-panel p-4 rounded-lg shadow-md mb-6">
-      {/* Fuzzy Search with Inset Icon */}
-      <div className="flex-1 min-w-[200px]">
-        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-          Fuzzy Search
-        </label>
-        <div className="relative">
-          <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </span>
-          <input
-            type="text"
-            value={searchVal}
-            onChange={(e) => setSearchVal(e.target.value)}
-            placeholder="Search name, company, partner..."
-            className="w-full bg-slate-950/60 border border-slate-800 rounded pl-9 pr-3 py-1.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500/20 transition-all duration-200"
-          />
-        </div>
+    <div className="flex flex-wrap items-center gap-3 p-2 border-b border-slate-800 bg-slate-900/60 shrink-0 select-none">
+      {/* Fuzzy Search with Material Icon */}
+      <div className="flex-1 min-w-[250px] relative">
+        <span className="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">
+          search
+        </span>
+        <input
+          type="text"
+          value={searchVal}
+          onChange={(e) => setSearchVal(e.target.value)}
+          placeholder="Search name, company, partner..."
+          className="w-full bg-slate-950/60 border border-slate-800 rounded py-1 pl-8 pr-3 font-mono text-xs text-white placeholder:text-slate-500 focus:border-[#38bdf8] focus:ring-1 focus:ring-[#38bdf8] focus:outline-none transition-all duration-200"
+        />
       </div>
 
-      {/* Department Dropdown */}
-      <div className="min-w-[160px]">
-        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-          Department
-        </label>
+      {/* Select Dropdowns */}
+      <div className="flex gap-2">
         <select
           onChange={(e) => handleFilterChange('department', e.target.value)}
-          className="w-full bg-slate-950/60 border border-slate-800 rounded px-3 py-1.5 text-sm text-slate-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500/20 transition-all duration-200"
+          className="bg-slate-950/60 border border-slate-800 rounded py-1 px-3 font-mono text-xs text-slate-200 focus:border-[#38bdf8] focus:ring-1 focus:ring-[#38bdf8] focus:outline-none cursor-pointer"
         >
-          <option value="">All Departments</option>
+          <option value="">Department: All</option>
           {departments.map(d => (
             <option key={d} value={d}>{d}</option>
           ))}
         </select>
-      </div>
 
-      {/* Automation Type Dropdown */}
-      <div className="min-w-[160px]">
-        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-          Automation Type
-        </label>
         <select
           onChange={(e) => handleFilterChange('automation_type', e.target.value)}
-          className="w-full bg-slate-950/60 border border-slate-800 rounded px-3 py-1.5 text-sm text-slate-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500/20 transition-all duration-200"
+          className="bg-slate-950/60 border border-slate-800 rounded py-1 px-3 font-mono text-xs text-slate-200 focus:border-[#38bdf8] focus:ring-1 focus:ring-[#38bdf8] focus:outline-none cursor-pointer"
         >
-          <option value="">All Types</option>
+          <option value="">Type: All</option>
           {automationTypes.map(t => (
             <option key={t} value={t}>{t}</option>
           ))}
         </select>
-      </div>
 
-      {/* Industry Dropdown */}
-      <div className="min-w-[160px]">
-        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-          Industry
-        </label>
         <select
           onChange={(e) => handleFilterChange('industry', e.target.value)}
-          className="w-full bg-slate-950/60 border border-slate-800 rounded px-3 py-1.5 text-sm text-slate-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500/20 transition-all duration-200"
+          className="bg-slate-950/60 border border-slate-800 rounded py-1 px-3 font-mono text-xs text-slate-200 focus:border-[#38bdf8] focus:ring-1 focus:ring-[#38bdf8] focus:outline-none cursor-pointer"
         >
-          <option value="">All Industries</option>
+          <option value="">Industry: All</option>
           {industries.map(i => (
             <option key={i} value={i}>{i}</option>
           ))}
