@@ -12,7 +12,6 @@ import layoutStore from './engine/layoutStore.js';
 
 export default function App() {
   const [inspectedRow, setInspectedRow] = useState(null);
-  const [isPaused, setIsPaused] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
 
   useEffect(() => {
@@ -36,20 +35,19 @@ export default function App() {
       }, csvPath);
     }
 
-    const handlePauseState = (e) => {
-      setIsPaused(e.detail.isPaused);
-    };
-    window.addEventListener('ingest-pause-state', handlePauseState);
-
-    setIsPaused(pipelineBuffer.isPaused);
-
     setTimeout(() => {
       layoutStore.init();
+      if (pipelineBuffer.isPaused) {
+        const analyticsBtn = document.getElementById('analytics-view-btn');
+        if (analyticsBtn) {
+          analyticsBtn.classList.remove('hidden');
+          analyticsBtn.classList.add('flex');
+        }
+      }
     }, 100);
 
     return () => {
       pipelineBuffer.onFlush = null;
-      window.removeEventListener('ingest-pause-state', handlePauseState);
     };
   }, []);
 
@@ -69,16 +67,14 @@ export default function App() {
         <div className="flex items-center gap-3">
           <LayoutToggles />
           <div className="w-px h-6 bg-slate-800 mx-1"></div>
-          {isPaused && (
-            <button
-              id="analytics-view-btn"
-              onClick={() => setShowAnalytics(true)}
-              className="px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider select-none flex items-center gap-2 border transition-all duration-200 cursor-pointer shadow-lg bg-sky-600/20 text-sky-400 border-sky-500/30 hover:bg-sky-600/35 shadow-sky-950/20"
-            >
-              <span className="material-symbols-outlined text-[14px]">query_stats</span>
-              Analytics View
-            </button>
-          )}
+          <button
+            id="analytics-view-btn"
+            onClick={() => setShowAnalytics(true)}
+            className="hidden px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider select-none items-center gap-2 border transition-all duration-200 cursor-pointer shadow-lg bg-sky-600/20 text-sky-400 border-sky-500/30 hover:bg-sky-600/35 shadow-sky-950/20"
+          >
+            <span className="material-symbols-outlined text-[14px]">query_stats</span>
+            Analytics View
+          </button>
           <PauseButton />
         </div>
       </header>
