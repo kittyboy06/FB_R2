@@ -11,7 +11,6 @@ export const fmtPercent = (val) => {
     return '0.00%';
   }
   const num = parseFloat(val);
-  // Do not clamp to 0 if it can be negative, so we can display negative ROI, but handle properly
   return `${num.toFixed(2)}%`;
 };
 

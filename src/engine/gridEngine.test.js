@@ -17,7 +17,7 @@ describe('gridEngine Ingestion', () => {
 
     expect(masterMap.size).toBe(2);
     expect(masterMap.get('uid_1').project_id).toBe('PRJ001');
-    expect(masterMap.get('uid_1')).not.toBe(mockBatch[0]); // Ensure shallow cloning to avoid reference retention
+    expect(masterMap.get('uid_1')).not.toBe(mockBatch[0]);
     expect(masterMap.get('uid_1').robots_deployed).toBe(10);
   });
 });

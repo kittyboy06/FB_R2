@@ -8,14 +8,13 @@ export function applyRowAlert(rowEl, row) {
   if (lastState !== currentState) {
     rowEl.dataset.alertState = currentState;
     
-    // Remove both classes first
     rowEl.classList.remove('row-flash-alert', 'row-flash-warn');
     
     if (isFailed) {
-      void rowEl.offsetWidth; // Force reflow to trigger CSS animation restart
+      void rowEl.offsetWidth;
       rowEl.classList.add('row-flash-alert');
     } else if (isNegativeRoi) {
-      void rowEl.offsetWidth; // Force reflow to trigger CSS animation restart
+      void rowEl.offsetWidth;
       rowEl.classList.add('row-flash-warn');
     }
   }
